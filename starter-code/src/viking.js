@@ -3,12 +3,13 @@ class Soldier {
     constructor(health, strength) {
         this.health = health;
         this.strength = strength;
-        this.attack = function(){
-            return this.strength;
-        }
-        this.receiveDamage = function(damage){
-            this.health = health - damage;
-        }
+        ;
+    }
+    attack () {
+        return this.strength;
+    }
+    receiveDamage(damage){
+        this.health -= damage;
     }
 }
 
@@ -17,40 +18,28 @@ class Viking extends Soldier {
     constructor(name, health, strength){
       // `super` refers to the constructor of the parent (Animal)
       // with super Cat gets all the attributes and methods of the Animal class
-      super(name, health, strength);
+      super(health, strength);
       this.name = name;
       this.health = health;
       this.strength = strength;
-      this.receiveDamage = function(damage) {
-        this.health = health - damage;
+    }
+        receiveDamage(damage){
         if(this.health > 0){
             return `${this.name} has received ${damage} points of damage`}
             else {return `${this.name} has died in act of combat`}
     }
-      this.battleCry = function (){
+        battleCry(){
          return "Odin Owns You All!";
       }
     }
   }
 
 
-  this.receiveDamage = function(damage) {
-            this.health = health - damage;
-            if(this.health > 0){
-                return `${this.name} has received ${damage} points of damage`}
-                else {return `${this.name} has died in act of combat`}
-        }
-
 
 // Saxon
 class Saxon extends Soldier {
-    constructor(health, strength){
-      super(name, health, strength);
-      this.name = name;
-      this.health = health;
-      this.strength = strength;
-      this.receiveDamage = function (damage) {
-          this.health = health - damage;
+      receiveDamage(damage){
+          super.receiveDamage(damage);
           if(this.health > 0){
             return `A Saxon has received ${damage} points of damage`}
             else {return `A Saxon has died in combat`}
@@ -63,13 +52,14 @@ class War {
     constructor(){
         this.vikingArmy = [];
         this.saxonArmy = [];
-        this.addViking = function(viking) {
+    }
+        addViking(viking) {
             this.vikingArmy.push(viking);
         }
-        this.addSaxon = function(saxon) {
+        addSaxon(saxon){
             this.saxonArmy.push(saxon);
         }
-        this.vikingAttack = function() {
+        vikingAttack() {
             let randomViking = Math.floor(Math.random()*this.vikingArmy.length);
             let randomSaxon = Math.floor(Math.random()*this.saxonArmy.length);
             let attackResult = this.saxonArmy[randomSaxon].receiveDamage(this.vikingArmy[randomViking].strength);
@@ -78,7 +68,7 @@ class War {
               }
             return attackResult;
         }
-        this.saxonAttack = function() {
+        saxonAttack() {
             let randomSaxon = Math.floor(Math.random()*this.saxonArmy.length);
             let randomViking = Math.floor(Math.random()*this.vikingArmy.length);
             let attackResult = this.vikingArmy[randomViking].receiveDamage(this.saxonArmy[randomSaxon].strength);
@@ -88,10 +78,17 @@ class War {
             return attackResult;
         }
         
-        // this.showStatus = function(){
-
-        //     }
-        // }
+        showStatus(){
+            if (this.saxonArmy.length === 0){
+                return "Vikings have won the war of the century!"
+            }
+            else if(this.vikingArmy.length === 0){
+                return "Saxons have fought for their lives and survived another day..."
+            }
+            else {
+                return "Vikings and Saxons are still in the heat of battle."
+            }
+        }
     }
 }
     
